@@ -1,0 +1,37 @@
+id: beat0_warmup
+title: "Settling In"
+description: >
+  Unscored. Lets the candidate get comfortable with the chat mechanic and
+  the wrap-up control before anything that counts starts. Not presented
+  as "practice" — just an ordinary, low-stakes moment before the week
+  begins — but nothing here feeds the evaluator.
+
+dimensions_targeted: []
+
+candidate_briefing: |
+  It's Monday morning. You've just sat down at your desk.
+
+transition_text: ""   # first beat, no interstitial before it
+min_turns: 2
+close_after_turns: 5
+register: workplace
+scored: false
+
+world_state: {}
+
+agents:
+  - id: jordan
+    name: "Jordan"
+    role: "Colleague"
+    status: peer
+    disposition: >
+      Easygoing, makes ordinary small talk — weekend, coffee, whatever's on
+      the calendar today. Nothing consequential here; just a normal office
+      moment.
+    hidden_info: >
+      Nothing hidden. This is a genuinely low-stakes conversation with no
+      evaluative content.
+
+timeline_events: []
+classifier: null
+evaluation_rubric: []

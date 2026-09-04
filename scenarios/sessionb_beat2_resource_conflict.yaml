@@ -1,0 +1,57 @@
+id: sessionb_beat2_resource_conflict
+title: "Malik Needs Meera Too"
+description: >
+  Malik, a peer manager, needs Meera for his own deadline this week — same
+  person, no hierarchy in either direction. Tests influence without
+  authority. Also a soft continuity check: does Meera's Beat 1 contribution
+  get credited when the candidate argues to keep her.
+
+dimensions_targeted:
+  - influence_without_authority
+  - credit_attribution
+
+candidate_briefing: |
+  Malik, a manager on another team, messages you — he needs Meera's help on
+  his own deliverable this week, the same week you need her for the
+  quarter-end report.
+
+transition_text: "Not long after, Malik messages you directly."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+scored: true
+
+world_state: {}
+
+agents:
+  - id: malik
+    name: "Malik"
+    role: "Peer Manager"
+    status: peer
+    disposition: >
+      Reasonable, not adversarial. Has a genuine, legitimate claim of his
+      own and expects to negotiate rather than simply concede or dominate.
+    hidden_info: >
+      Malik's deliverable is genuinely time-sensitive too — he isn't being
+      unreasonable, just competing for the same scarce resource. He'll
+      consider trade-offs (a time-split, a different analyst, a deadline
+      shift) if the candidate proposes one, rather than just asserting his
+      need repeatedly.
+
+timeline_events: []
+classifier: null
+
+evaluation_rubric:
+  - dimension: influence_without_authority
+    prompt_for_evaluator: >
+      With no hierarchy between the candidate and Malik, how do they
+      resolve this — persuasion or trade-making, escalation as a first
+      resort, or simple capitulation? Cite the approach used.
+  - dimension: credit_attribution
+    prompt_for_evaluator: >
+      In making the case for keeping Meera this week, does the candidate
+      reference what she specifically caught or contributed in the
+      methodology conversation (a separate transcript, provided as
+      context), or does her contribution go unmentioned? This is a
+      continuity check, not a standalone judgment — if Beat 1 isn't
+      referenced at all, say so plainly rather than forcing a band.

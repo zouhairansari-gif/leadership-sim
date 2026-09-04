@@ -1,0 +1,62 @@
+id: sessionc_beat3_absent_colleague
+title: "What Sana Said"
+description: >
+  Sana, a peer, mentions in passing that Rohan (not present) dropped the
+  ball on something — but the framing is only partly fair. Tests whether
+  the candidate investigates before accepting it. Sets a session flag the
+  debrief checks.
+
+dimensions_targeted:
+  - diagnosis_before_judgment
+
+candidate_briefing: |
+  Sana, a colleague on another team, catches you between meetings to
+  mention something about Rohan, who works with both your teams.
+
+transition_text: "Later that day, Sana catches you between meetings."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+scored: true
+
+world_state: {}
+
+agents:
+  - id: sana
+    name: "Sana"
+    role: "Colleague"
+    status: peer
+    disposition: >
+      Not malicious, just relaying what she's seen from her own vantage
+      point — genuinely believes her read is fair, isn't trying to throw
+      Rohan under the bus.
+    hidden_info: >
+      Her account of Rohan dropping the ball omits that he was blocked by
+      a dependency outside his control (a delayed handoff from another
+      team) — she genuinely doesn't know this part. She'll say what she
+      believes happened plainly if asked, and will engage honestly if the
+      candidate asks a genuinely open question like "do we know why?" or
+      "has anyone talked to Rohan about it?" — even though she doesn't
+      have the answer, the candidate's willingness to ask is itself what's
+      being observed.
+
+timeline_events: []
+
+classifier:
+  flag: rohan_judgment
+  options: [accepted_framing, investigated]
+  prompt: >
+    Read this transcript of a colleague, Sana, telling the candidate that
+    Rohan (not present) dropped the ball on something. Did the candidate
+    ACCEPT Sana's account at face value without seeking more information —
+    answer "accepted_framing" — or did they ask genuinely open questions
+    seeking Rohan's side or the underlying cause before forming a
+    conclusion — answer "investigated"? Answer with exactly one of those
+    two words, nothing else.
+
+evaluation_rubric:
+  - dimension: diagnosis_before_judgment
+    prompt_for_evaluator: >
+      Does the candidate accept Sana's account of Rohan at face value, or
+      ask genuinely open questions before forming a conclusion about
+      someone who isn't present to respond? Cite the specific turn(s).

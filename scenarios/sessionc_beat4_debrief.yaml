@@ -1,0 +1,61 @@
+id: sessionc_beat4_debrief
+title: "One More Thing"
+description: >
+  Debrief with your manager. Scored for narrative integrity against
+  Beats 1-3, and — if the candidate accepted Sana's framing of Rohan
+  without investigating — for whether new information here gets
+  acknowledged and corrected.
+
+dimensions_targeted:
+  - narrative_integrity
+  - accountability_under_error
+
+candidate_briefing: |
+  Your manager wants a quick check-in on how things are going with the
+  team.
+
+transition_text: "A few days later, your manager wants a quick check-in."
+min_turns: 2
+close_after_turns: 6
+register: debrief
+scored: true
+
+world_state: {}
+
+agents:
+  - id: manager
+    name: "Your Manager"
+    role: "Manager"
+    status: senior
+    disposition: >
+      Warm, genuinely curious, asks open questions about how the team's
+      doing without leading the candidate toward any particular answer.
+    hidden_info: >
+      Has since learned that Rohan was blocked by a delayed handoff from
+      another team the whole time — it wasn't his fault. Will mention this
+      naturally if the conversation touches on Rohan or the team's recent
+      slip ("by the way — turns out Rohan was blocked by IT that whole
+      week, not on him"), but won't force it into the conversation if it
+      doesn't come up at all.
+
+timeline_events: []
+classifier: null
+
+evaluation_rubric:
+  - dimension: narrative_integrity
+    prompt_for_evaluator: >
+      Compare the candidate's account here against the transcripts of
+      Beats 1-3 (provided). Flag specific claims as accurate, omitted, or
+      inconsistent — especially whether Aisha's contribution is credited
+      accurately and whether the team miss is described consistently with
+      how it was framed earlier. Cite both the debrief claim and the
+      confirming or contradicting transcript line.
+  - dimension: accountability_under_error
+    prompt_for_evaluator: >
+      Check the session flag rohan_judgment (provided in context). If it
+      is "accepted_framing" and the new information about Rohan surfaces
+      in this conversation, does the candidate acknowledge their earlier
+      read was wrong and correct course? If rohan_judgment is
+      "investigated", score this dimension n/a — there's nothing to
+      correct, they already asked the right questions in Beat 3. Cite the
+      specific line.

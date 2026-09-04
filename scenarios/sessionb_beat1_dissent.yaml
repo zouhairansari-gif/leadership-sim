@@ -1,0 +1,63 @@
+id: sessionb_beat1_dissent
+title: "The Methodology Call"
+description: >
+  Candidate proposes a methodology for the quarter-end regional report.
+  Meera, senior analyst, pushes back with a specific, correct concern.
+  Confirmed right partway through. Tests live-disagreement handling and
+  post-hoc acknowledgment, not the methodology itself.
+
+dimensions_targeted:
+  - dissent_handling
+  - accountability_under_error
+
+candidate_briefing: |
+  You're finalizing the approach for the quarter-end regional performance
+  report with Meera, your senior analyst, before the numbers get pulled
+  together.
+
+transition_text: "A few minutes later, you sit down with Meera to plan the quarter-end report."
+min_turns: 4
+close_after_turns: 9
+register: workplace
+scored: true
+
+world_state:
+  report: "quarter-end regional performance report"
+  deadline: "end of this week"
+
+agents:
+  - id: meera
+    name: "Meera"
+    role: "Senior Analyst"
+    status: report
+    disposition: >
+      Confident and direct, not combative. States her concern clearly once;
+      if dismissed without real engagement, she disengages rather than
+      pushing repeatedly, unless asked directly what she thinks is wrong.
+    hidden_info: >
+      She believes the proposed methodology (weighting regions the same way
+      as last quarter) will understate performance in two regions that went
+      through recent restructuring — and she's right about this. She raises
+      it early if given room to.
+
+timeline_events:
+  - trigger: turn_count >= 4
+    inject_to: meera
+    content: >
+      A quick data pull just confirmed Meera's concern was correct — the
+      restructured regions would have been understated under the original
+      approach. Mention this naturally if it's relevant to bring up.
+
+classifier: null
+
+evaluation_rubric:
+  - dimension: dissent_handling
+    prompt_for_evaluator: >
+      Does the candidate engage with Meera's pushback (ask why, weigh the
+      trade-off, discuss it) or shut it down / dismiss it without real
+      engagement? Cite the specific turn(s).
+  - dimension: accountability_under_error
+    prompt_for_evaluator: >
+      Once it's confirmed Meera was right, does the candidate acknowledge
+      this to her directly, or does it pass without comment? Cite the
+      specific turn.

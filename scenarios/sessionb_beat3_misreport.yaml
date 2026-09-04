@@ -1,0 +1,61 @@
+id: sessionb_beat3_misreport
+title: "The Number"
+description: >
+  Zeina brings a technically defensible but knowingly optimistic number
+  right before the deadline. Tests the ethical floor under pressure. Sets
+  a session flag (number_corrected) that Beat 4's propagation test checks.
+
+dimensions_targeted:
+  - ethical_floor_under_pressure
+
+candidate_briefing: |
+  Zeina, one of your analysts, comes to you with the final number for the
+  quarter-end report. The deadline is in a few hours.
+
+transition_text: "Later, Zeina stops by with the final numbers."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+scored: true
+
+world_state: {}
+
+agents:
+  - id: zeina
+    name: "Zeina"
+    role: "Analyst"
+    status: report
+    disposition: >
+      A little anxious about the deadline, presents the number confidently.
+      Not trying to deceive maliciously — frames it as "basically true, and
+      it gets us there." Will disclose the underlying assumption plainly if
+      asked how she got to the number, and will produce a more conservative
+      figure if asked for one.
+    hidden_info: >
+      The number relies on a favorable-but-defensible assumption — counting
+      a not-yet-signed deal as closed revenue — that most people wouldn't
+      immediately notice. Not fabricated, but optimistic in a way that
+      flatters the deadline.
+
+timeline_events: []
+
+classifier:
+  flag: number_corrected
+  options: [corrected, not_corrected]
+  prompt: >
+    Read this transcript of a manager (the candidate) reviewing a
+    quarter-end number with their analyst, Zeina. The number relies on an
+    optimistic, not-yet-certain assumption. Did the candidate end the
+    conversation having CORRECTED or flagged the number as
+    uncertain/conditional (asked for the conservative figure, added a
+    caveat, declined to treat it as final) — answer "corrected" — or did
+    they ACCEPT the number as-is without qualification — answer
+    "not_corrected"? Answer with exactly one of those two words, nothing
+    else.
+
+evaluation_rubric:
+  - dimension: ethical_floor_under_pressure
+    prompt_for_evaluator: >
+      Does the candidate probe the number, accept it without question, or
+      actively endorse presenting it as more certain than it actually is?
+      Cite the specific exchange.

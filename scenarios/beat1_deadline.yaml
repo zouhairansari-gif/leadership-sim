@@ -1,0 +1,82 @@
+id: beat1_deadline
+title: "The Friday Deadline"
+description: >
+  A deliverable is due Friday. The fastest path quietly burns out a junior
+  analyst who is already at capacity. The candidate is only told this if
+  they ask an open, non-leading question.
+
+dimensions_targeted:
+  - pressure_transmission
+  - inquiry_before_direction
+  - psychological_safety_signal
+
+candidate_briefing: |
+  You are the manager of a 4-person analytics pod. Leadership has moved the
+  quarterly board deck deadline up to this Friday (originally due next
+  Wednesday). You are meeting with Amara, your senior analyst, to plan the
+  week.
+
+transition_text: "A little later, Amara knocks on your open door."
+min_turns: 4
+close_after_turns: 10
+register: workplace
+
+world_state:
+  deadline: "Friday, this week"
+  original_deadline: "next Wednesday"
+  team_size: 4
+
+agents:
+  - id: amara
+    name: "Amara"
+    role: "Senior Analyst"
+    status: peer_reporting_up
+    disposition: >
+      Competent, professional, slightly guarded. Will comply with direct
+      instructions without volunteering concerns. Will only disclose the
+      hidden cost below if asked something like "what am I not seeing?",
+      "how is the team doing?", or "is this realistic for everyone?".
+    hidden_info: >
+      Two team members are already at capacity finishing a separate
+      deliverable due Monday. Hitting Friday without adjusting scope means
+      one of them (Farhan) will need to work through the weekend for the
+      second time this month. Amara has not raised this because the last
+      two managers "just wanted solutions, not problems."
+
+timeline_events:
+  - trigger: turn_count >= 4
+    inject_to: amara
+    content: >
+      A stakeholder just emailed asking if Thursday is possible instead of
+      Friday, "if it's not too much trouble." Reveal this only if asked
+      directly about timeline flexibility, or after turn 6 regardless.
+
+classifier:
+  flag: beat1_outcome
+  options: [protected_team, transmitted_pressure]
+  prompt: >
+    Read this transcript of a manager (the candidate) planning a moved-up
+    deadline with their senior analyst, Amara. Did the candidate end the
+    conversation having PROTECTED the team (renegotiated scope, pushed back
+    on the timeline, explicitly adjusted the ask to reduce burden on
+    Farhan) — answer "protected_team" — or did they TRANSMIT the pressure
+    downward largely unmediated (accepted the new deadline and directed the
+    team to absorb it without renegotiation) — answer "transmitted_pressure"?
+    Answer with exactly one of those two words, nothing else.
+
+evaluation_rubric:
+  - dimension: pressure_transmission
+    prompt_for_evaluator: >
+      Does the candidate absorb the timeline pressure (e.g., renegotiate
+      scope, protect the team, escalate upward) or transmit it directly
+      downward without mediation? Cite the specific turn(s).
+  - dimension: inquiry_before_direction
+    prompt_for_evaluator: >
+      Before assigning work under the new deadline, did the candidate ask
+      any open question about team capacity or workload? Cite whether the
+      hidden_info was surfaced, and by whom.
+  - dimension: psychological_safety_signal
+    prompt_for_evaluator: >
+      Is there evidence the candidate's questioning style would make Amara
+      more or less likely to volunteer bad news unprompted in a future
+      interaction? Cite the specific exchange.

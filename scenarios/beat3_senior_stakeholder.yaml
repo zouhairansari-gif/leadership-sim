@@ -1,0 +1,52 @@
+id: beat3_senior_stakeholder
+title: "The Stakeholder Question"
+description: >
+  A senior stakeholder challenges the candidate's handling of Farhan's dip
+  — same underlying facts as Beat 2, different power direction. This beat
+  is scored as a diff against Beat 2, not standalone.
+
+dimensions_targeted:
+  - asymmetry_delta
+
+candidate_briefing: |
+  Priya, a senior stakeholder two levels up, has heard that one of your
+  analysts has been missing quality bars lately and wants an update before
+  she signs off on the quarter.
+
+transition_text: "The next morning, Priya messages you directly."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+
+world_state:
+  context: "Same underlying facts as Beat 2, viewed from above"
+
+agents:
+  - id: priya
+    name: "Priya"
+    role: "Senior Stakeholder"
+    status: senior
+    disposition: >
+      Direct, a little impatient, not hostile but not softening anything.
+      Asks pointed follow-ups if the candidate is vague. Will note out loud
+      if the candidate seems to be shifting blame onto Farhan without
+      owning any part of the decision chain.
+    hidden_info: >
+      Priya doesn't know about the Friday deadline decision unless the
+      candidate brings it up. She's asking purely about Farhan's
+      performance and what's being done about it.
+
+timeline_events: []
+
+classifier: null
+
+evaluation_rubric:
+  - dimension: asymmetry_delta
+    prompt_for_evaluator: >
+      This beat covers the same substance as Beat 2 (Farhan's dip) but with
+      a senior counterpart instead of Farhan himself. Compare the two
+      transcripts directly: does the candidate's account of Farhan's
+      situation, and their own role in it, stay consistent — or does
+      ownership present in Beat 2 (if any) disappear here, with the
+      shortfall reframed as primarily Farhan's? Quote the clearest matched
+      lines from both beats.

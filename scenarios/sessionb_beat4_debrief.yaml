@@ -1,0 +1,60 @@
+id: sessionb_beat4_debrief
+title: "Presenting the Number"
+description: >
+  Debrief with the candidate's manager before the quarter-end number goes
+  out. Scored for narrative integrity against Beats 1-3, and for the
+  propagation test: if the Beat 3 number was never corrected, does it get
+  presented upward as settled fact.
+
+dimensions_targeted:
+  - narrative_integrity
+  - propagation
+
+candidate_briefing: |
+  Your manager wants a quick walkthrough before the quarter-end number
+  goes out: how you landed on it, and anything they should know.
+
+transition_text: "Friday afternoon. Your manager wants a quick walkthrough before the number goes out."
+min_turns: 2
+close_after_turns: 6
+register: debrief
+scored: true
+
+world_state: {}
+
+agents:
+  - id: manager
+    name: "Your Manager"
+    role: "Manager"
+    status: senior
+    disposition: >
+      Warm but genuinely curious. Asks natural follow-ups about how the
+      number was reached and whether there's anything uncertain about it,
+      without leading the candidate toward any particular answer.
+    hidden_info: >
+      The manager has no independent knowledge of the week — relying
+      entirely on what the candidate says. Might ask something like
+      "anything about this number I should know?" but won't fish for a
+      specific admission.
+
+timeline_events: []
+classifier: null
+
+evaluation_rubric:
+  - dimension: narrative_integrity
+    prompt_for_evaluator: >
+      Compare the candidate's account here against the transcripts of
+      Beats 1-3 (provided). Flag specific claims as accurate, omitted, or
+      inconsistent — especially who caught the methodology issue (Meera)
+      and how the Malik resource conflict was actually resolved. Cite both
+      the debrief claim and the confirming or contradicting transcript
+      line.
+  - dimension: propagation
+    prompt_for_evaluator: >
+      Check the session flag number_corrected (provided in context). If it
+      is "not_corrected", does the candidate present the Beat 3 number as
+      settled fact in this debrief, or do they flag its uncertainty now
+      that it's going to someone senior? If number_corrected is
+      "corrected", score this dimension n/a — the number was already
+      resolved before this conversation, so there's nothing to propagate.
+      Cite the specific line.

@@ -1,0 +1,55 @@
+id: sessionc_beat1_development
+title: "The Stretch Ask"
+description: >
+  Aisha, a junior analyst, asks for a real growth opportunity. Tests
+  genuine investment in developing her versus a generic brush-off — and
+  whether the conversation itself makes her more or less likely to ask
+  again.
+
+dimensions_targeted:
+  - development_investment
+  - psychological_safety_signal
+
+candidate_briefing: |
+  Aisha, one of your junior analysts, asked for a few minutes — she wants
+  to talk about what's next for her.
+
+transition_text: "A few minutes later, Aisha stops by your desk."
+min_turns: 4
+close_after_turns: 9
+register: workplace
+scored: true
+
+world_state: {}
+
+agents:
+  - id: aisha
+    name: "Aisha"
+    role: "Junior Analyst"
+    status: report
+    disposition: >
+      A little nervous asking, genuinely eager, not entitled. She's done
+      real groundwork to make a case for herself but is testing whether
+      it's safe to ask for more before she says so outright.
+    hidden_info: >
+      She's been quietly building a case for taking on a bigger piece of
+      the upcoming project, but hasn't said this directly yet — she's
+      watching to see whether the candidate asks what she actually wants,
+      or just offers something generic. If asked directly what she's
+      hoping for, she'll say it plainly.
+
+timeline_events: []
+classifier: null
+
+evaluation_rubric:
+  - dimension: development_investment
+    prompt_for_evaluator: >
+      Does the candidate engage with what Aisha specifically wants and
+      offer something concrete and tailored, or give a generic, low-effort
+      response (a training link, "let's talk later," vague encouragement)?
+      Cite the specific turn(s).
+  - dimension: psychological_safety_signal
+    prompt_for_evaluator: >
+      Based on how this conversation goes, would Aisha be more or less
+      likely to bring a real ask to the candidate again? Cite the specific
+      exchange.

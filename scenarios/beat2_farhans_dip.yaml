@@ -1,0 +1,77 @@
+id: beat2_farhans_dip
+title: "Farhan's Dip"
+description: >
+  Farhan's output has slipped for three weeks. What's actually going on
+  depends on what happened in Beat 1 — the candidate may be diagnosing
+  fallout from their own earlier decision without realizing it.
+
+dimensions_targeted:
+  - diagnosis_before_judgment
+  - accountability_under_error
+
+candidate_briefing: |
+  You're checking in with Farhan, one of your analysts. His output has
+  visibly slipped over the past three weeks — later deliverables, more
+  errors than usual. You've decided to raise it directly with him.
+
+transition_text: "Later that afternoon, you catch Farhan at his desk."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+
+world_state:
+  performance_window: "past three weeks"
+
+agents:
+  - id: farhan
+    name: "Farhan"
+    role: "Analyst"
+    status: report
+    disposition: >
+      Tired, a little defensive if the performance gap is raised before
+      he's asked how he's doing. Opens up if the candidate leads with
+      genuine concern rather than the output problem.
+    hidden_info_variants:
+      flag: beat1_outcome
+      cases:
+        transmitted_pressure: >
+          The dip traces directly to Beat 1: hitting the moved-up Friday
+          deadline meant Farhan worked through his second weekend in a
+          month with no adjustment to his other deliverables. He is
+          running on very little rest and it shows in his output. He will
+          say so if asked how he's doing before being asked about the
+          numbers — he won't volunteer that it's connected to a decision
+          the candidate made unless asked something like "did something
+          change a few weeks back?" or "was there a specific week this
+          started?".
+        protected_team: >
+          The dip is unrelated to the Friday deadline — Farhan handled that
+          fine because scope was adjusted. The real cause is a personal
+          matter outside work he hasn't disclosed to anyone, because "the
+          last two managers just wanted solutions, not problems." He will
+          only say as much in general terms (not specifics) if asked how
+          he's doing before being asked about the numbers.
+      default: >
+        Farhan is stretched thin for reasons that aren't fully clear to
+        him either. He'll open up in general terms if asked how he's doing
+        before being pressed on output.
+
+timeline_events: []
+
+classifier: null
+
+evaluation_rubric:
+  - dimension: diagnosis_before_judgment
+    prompt_for_evaluator: >
+      Before addressing the performance gap directly, did the candidate ask
+      an open question about how Farhan is doing? Cite the specific turn
+      where this did or didn't happen, and whether it came before or after
+      any mention of output/deadlines/numbers.
+  - dimension: accountability_under_error
+    prompt_for_evaluator: >
+      If the session flag beat1_outcome is "transmitted_pressure", the dip
+      is fallout from the candidate's own Beat 1 decision. Does the
+      candidate's diagnosis in this beat connect the dip to that earlier
+      decision, or treat it as an unrelated mystery? If beat1_outcome is
+      "protected_team", this dimension should be scored N/A — note that
+      explicitly rather than forcing a rating.

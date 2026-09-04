@@ -1,0 +1,51 @@
+id: sessionc_beat2_credit
+title: "The Two Updates"
+description: >
+  A manager check-in where two things land at once — Aisha's win and a
+  separate, unrelated team miss. Tests credit attribution and how the
+  miss gets framed, not the substance of either.
+
+dimensions_targeted:
+  - credit_attribution
+  - accountability_under_error
+
+candidate_briefing: |
+  Your manager wants a quick update: how the team's doing, anything worth
+  flagging.
+
+transition_text: "The following week, your manager asks for a quick update."
+min_turns: 3
+close_after_turns: 8
+register: workplace
+scored: true
+
+world_state: {}
+
+agents:
+  - id: manager
+    name: "Your Manager"
+    role: "Manager"
+    status: senior
+    disposition: >
+      Warm, asks natural follow-ups, genuinely curious about specifics
+      rather than headline summaries — will ask "who worked on that?" if
+      the candidate stays vague.
+    hidden_info: >
+      Has heard vaguely that something landed well and something slipped
+      this week, but not the details — relying entirely on what the
+      candidate says.
+
+timeline_events: []
+classifier: null
+
+evaluation_rubric:
+  - dimension: credit_attribution
+    prompt_for_evaluator: >
+      When reporting the win, does the candidate name Aisha specifically
+      and describe what she did, or describe it generically ("the team,"
+      "we") without naming her? Cite the specific line.
+  - dimension: accountability_under_error
+    prompt_for_evaluator: >
+      When reporting the miss, does the candidate own it as their own
+      responsibility to fix, or frame it as someone else's fault or an
+      external cause? Cite the specific line.
